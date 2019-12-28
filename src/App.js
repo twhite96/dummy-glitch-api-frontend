@@ -1,26 +1,38 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Form, FormInput, FormGroup } from 'shards-react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'shards-ui/dist/css/shards.min.css'
+class App extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+  state = {
+    userData: []
+  }
+  componentDidMount() {
+    fetch('https://faker-api.glitch.me/api/user')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({ userData: data })
+      })
+      .catch(console.log)
+  }
+  render() {
+    return (
+      <Form>
+        <FormGroup>
+          <label htmlFor="#username">Username</label>
+          <FormInput id="#username" placeholder="Username" />
+        </FormGroup>
+        <FormGroup>
+          <label htmlFor="#password">Password</label>
+          <FormInput type="password" id="#password" placeholder="Password" />
+        </FormGroup>
+      </Form>
+    )
+  }
 }
 
 export default App;
