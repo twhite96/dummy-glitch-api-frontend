@@ -1,6 +1,6 @@
 import React from 'react';
 
-const User = ({ userData = []}) => {
+const User = ({ users }) => {
   return (
     <div>
       <center><h1>Contact List</h1></center>
