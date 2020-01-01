@@ -2,10 +2,14 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'shards-ui/dist/css/shards.min.css';
-import Loader from 'react-loader-spinner';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import { Card, CardBody } from 'shards-react';
+import { css } from "@emotion/core";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
+
+const override = css`
+  margin: 28rem 58rem;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -32,7 +36,12 @@ class App extends React.Component {
   render() {
     const { isLoaded } = this.state;
     if (!isLoaded)
-      return <div><Loader type="Rings" color="#06d7d9" height={200} width={200} style={{textAlign: 'center', marginTop: '25rem'}}/></div>;
+      return <div><PacmanLoader
+        css={override}
+        size={50}
+        //size={"150px"} this also works
+        color={"#06d7d9"}
+      /></div>;
     const users = Object.keys(this.state.userData);
     console.log(users);
     let newUser = users.map((user, i) => {
