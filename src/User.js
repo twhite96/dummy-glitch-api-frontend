@@ -4,26 +4,21 @@ import * as React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'shards-ui/dist/css/shards.min.css';
 import { Card, CardBody } from 'shards-react';
-import PacmanLoader from "react-spinners/PacmanLoader";
-import { css } from "@emotion/core";
 
 
-const override = css`
-  margin: 28rem 58rem;
-`;
 export class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: undefined,
-      isLoaded: false,
+      // isLoaded: false,
     };
   }
 
   componentDidMount() {
     fetch("https://faker-api.glitch.me/api/user")
       .then(res => res.json())
-      .then(user => this.setState({ user, isLoaded: true }))
+      .then(user => this.setState({ user }))
       .catch(err => console.log(err));
   }
   render() {
@@ -33,15 +28,15 @@ export class User extends React.Component {
         {user && (
           <Card className="d-flex m-3">
             <CardBody>
-              <div class="card-body">
-                <h5 class="card-title">{user.name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{user.email}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{user.address}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{user.bio}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{user.image}</h6>
+              <div className="card-body">
+                <h5 className="card-title">{user.name}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">{user.email}</h6>
+                <h6 className="card-subtitle mb-2 text-muted">{user.address}</h6>
+                <h6 className="card-subtitle mb-2 text-muted">{user.bio}</h6>
+                <h6 className="card-subtitle mb-2 text-muted">{user.image}</h6>
               </div>
             </CardBody>
-          </Card>
+            </Card>
         )}
       </div>
     );
