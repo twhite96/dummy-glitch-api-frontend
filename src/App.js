@@ -1,5 +1,4 @@
-import React, { Suspense } from "react";
-import "./App.css";
+import React from "react";
 import { User } from "./User";
 // To override spinner CSS eventually
 // import { css } from "@emotion/core";
@@ -8,31 +7,83 @@ import { PacmanLoader } from "react-spinners";
 class App extends React.Component {
   constructor(props) {
     super(props);
+    // setting the state the spinner and User objects
+    // the empty objects will be filled with response data from my API
     this.state = {
-      loading: true,
-    }
+      status: "idle",
+      firstUser: {},
+      secondUser: {},
+      thirdUser: {},
+      fourthUser: {},
+      fifthUser: {}
+    };
+  }
+
+
+  // create a method to fetch a user from a promise
+  getUser() {
+    return fetch("https://faker-api.glitch.me/api/user").then(res =>
+      res.json()
+    );
+  }
+
+  userList() {
+    const {
+      firstUser,
+      secondUser,
+      thirdUser,
+      fourthUser,
+      fifthUser
+    } = this.state;
+    return (
+      <div>
+        <User user={firstUser} />
+        <User user={secondUser} />
+        <User user={thirdUser} />
+        <User user={fourthUser} />
+        <User user={fifthUser} />
+      </div>
+    );
+  }
+
+  requestRender(status) {
+    const renderStatuses = {
+      idle: () => null,
+      loading: () => <PacmanLoader size={150} color={"#06d7d9"} />,
+      loaded: () => this.userList(),
+      error: () => <h1>An error occurred!</h1>
+    };
+    return renderStatuses[status];
+  }
+
+  componentDidMount() {
+    this.setState({ status: "loading" });
+    Promise.all([
+      this.getUser(),
+      this.getUser(),
+      this.getUser(),
+      this.getUser(),
+      this.getUser()
+    ])
+      .then(([firstUser, secondUser, thirdUser, fourthUser, fifthUser]) => {
+        this.setState({
+          status: "loaded",
+          firstUser,
+          secondUser,
+          thirdUser,
+          fourthUser,
+          fifthUser
+        });
+      })
+      .catch(() => {
+        this.setState({ status: "error" });
+      });
   }
 
   // TODO  Refactor for Hooks, React.lazy, and Suspense.
   render() {
-    return (
-      // Testing out Suspense, really trying to learn how it works.
-      // Here I am using Suspense component to load a spinner before data is fetched from my API
-      // However the spinner doesn't load, just the Users
-      // tried to use React.lazy and each call to the API rendered a weird object. Not ideal.
-      // Studying more tonight 2020/02/09
-      <Suspense fallback={<PacmanLoader
-        size={150}
-        color={"#06d7d9"} />}>
-        <div>
-          <User />
-          <User />
-          <User />
-          <User />
-          <User />
-        </div>
-      </Suspense>
-    );
+    const { status } = this.state;
+    return this.requestRender(status)();
   }
 }
 

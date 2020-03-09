@@ -35,5 +35,23 @@ I tried to use old React syntax but then realized React has APIs that make this 
 ## Next steps
 I am going to be diving into some tutorials on how to use those newer React APIs.
 
+## ⚡ Refactor ⚡
+
+[Joseph Rex](https://twitter.com/josephrexme) refactored the `App.js` component via Hangouts. I grok _some_ of what he did, but I am going to get with him to get a better understanding of the method where have an object like this:
+
+```js
+requestRender(status) {
+    const renderStatuses = {
+      idle: () => null,
+      loading: () => <PacmanLoader size={150} color={"#06d7d9"} />,
+      loaded: () => this.userList(),
+      error: () => <h1>An error occurred!</h1>
+    };
+    return renderStatuses[status];
+  }
+  ```
+
+  I am not certain why the properties on the `renderStatuses` object are functions.
+
 ### Further reading
 [Piping in a Node API from Glitch to a React Frontend | Tiffany R. White Blog](https://tiffanywhite.dev/2020/01/31/piping-in-a-node-api-from-glitch-to-a-react-frontend/)
