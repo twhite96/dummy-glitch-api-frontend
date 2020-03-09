@@ -1,8 +1,16 @@
 import React from "react";
 import { User } from "./User";
 // To override spinner CSS eventually
-// import { css } from "@emotion/core";
+import { css } from "@emotion/core";
 import { PacmanLoader } from "react-spinners";
+
+const spinner =  css `
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+`
 
 class App extends React.Component {
   constructor(props) {
@@ -49,7 +57,7 @@ class App extends React.Component {
   requestRender(status) {
     const renderStatuses = {
       idle: () => null,
-      loading: () => <PacmanLoader size={150} color={"#06d7d9"} />,
+      loading: () => <PacmanLoader css={spinner} size={150} color={"#06d7d9"} />,
       loaded: () => this.userList(),
       error: () => <h1>An error occurred!</h1>
     };
