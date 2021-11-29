@@ -2,7 +2,7 @@
 
 > A small react frontend to my Faker.js API hosted on Glitch.
 
-[Live Demo](https://fakerdata.tiffstuff.dev/)
+[Live Demo](https://fakerdata.tiff.app/)
 
 <a href="https://app.netlify.com/start/deploy?repository=https://github.com/twhite96/dummy-glitch-api-frontend"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify"></a>
 
