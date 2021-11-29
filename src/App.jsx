@@ -30,7 +30,7 @@ class App extends React.Component {
 
   // create a method to fetch a user from a promise
   getUser() {
-    return fetch("https://faker-api.glitch.me/api/user").then(res =>
+    return fetch("https://dummy-api-backend.onrender.com/api/user").then(res =>
       res.json()
     );
   }
